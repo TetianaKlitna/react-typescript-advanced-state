@@ -1,6 +1,6 @@
 import AddTimer from './components/AddTimer.tsx';
 import Header from './components/Header.tsx';
-import TimersContextProvider from './components/store/timers-context.tsx';
+import TimersContextProvider from './store/TimersContextProvider.tsx';
 import Timers from './components/Timers.tsx';
 
 function App() {
