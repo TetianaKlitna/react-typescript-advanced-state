@@ -20,4 +20,10 @@ export type TimersContextProviderProps = {
   children: ReactNode;
 };
 
-export type Action = { type: 'ADD_TIMER' | 'START_TIMERS' | 'STOP_TIMERS' };
+export type StartTymersAction = { type: 'START_TIMERS' };
+
+export type StopTimersAction = { type: 'STOP_TIMERS' };
+
+export type AddTimerAction = { type: 'ADD_TIMER', payload: Timer };
+
+export type Action = StartTymersAction | StopTimersAction | AddTimerAction;

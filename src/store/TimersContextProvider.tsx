@@ -3,12 +3,24 @@ import {
   Action,
   TimersContextProviderProps,
   TimersContextValue,
-} from './timers.types';
+} from './timers.types.ts';
 import { useReducer } from 'react';
-import TimersContext from './TimersContext';
+import TimersContext from './TimersContext.tsx';
 
 function TimerReducer(state: TimersState, action: Action): TimersState {
- 
+  if (action.type === 'START_TIMERS') {
+    return { ...state, isRunning: true };
+  }
+  if (action.type === 'STOP_TIMERS') {
+    return { ...state, isRunning: false };
+  }
+  if (action.type === 'ADD_TIMER') {
+    return {
+      ...state,
+      timers: [...state.timers, { ...action.payload }],
+    };
+  }
+  return state;
 }
 
 const initialState: TimersState = {
@@ -18,12 +30,11 @@ const initialState: TimersState = {
 
 function TimersContextProvider({ children }: TimersContextProviderProps) {
   const [timersState, dispatch] = useReducer(TimerReducer, initialState);
-
   const ctx: TimersContextValue = {
-    timers: [],
-    isRunning: false,
+    timers: timersState.timers,
+    isRunning: timersState.isRunning,
     addTimer(timerData) {
-      dispatch({ type: 'ADD_TIMER' });
+      dispatch({ type: 'ADD_TIMER', payload: timerData });
     },
     startTimers() {
       dispatch({ type: 'START_TIMERS' });
