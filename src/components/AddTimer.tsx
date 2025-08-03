@@ -10,6 +10,7 @@ export default function AddTimer() {
 
   function handleSaveTimer(data: unknown) {
     const extractedData = data as { name: string; duration: string };
+    if (!extractedData.name || !extractedData.duration) return;
     addTimer({
       name: extractedData.name,
       duration: Number(extractedData.duration),
